@@ -34,7 +34,28 @@ docker-compose -f ./docker-compose.yaml build
 
 ## Documentation
 
-本项目相关的文档请参考：
+项目目录结构：
 
-[Scaffold-gin](https://book.mjiee.top/scaffold-gin/index.html)
+```bash
 
+```
+
+项目依赖:
+
+```bash
+github.com/spf13/cobra  # 命令行
+github.com/spf13/viper  # 配置管理
+github.com/google/wire/cmd/wire  # 依赖注入, 需要安装
+
+
+```
+
+其他服务:
+
+```bash
+# swagger文档生成
+swag init --parseDependency --output ./bin/docs
+
+# 依赖代码文档生成
+wire
+```
