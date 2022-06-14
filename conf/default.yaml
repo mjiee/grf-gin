@@ -1,0 +1,40 @@
+app:
+  name: "admin"
+  mode: "dev"
+  addr: "127.0.0.1:8080"
+
+log:
+  level: 0
+  filename: "./log/admin.log"
+  max_size: 10
+  max_age: 5
+  max_backups: 10
+  compress: false
+  skip_paths:
+    - "/check"
+
+db:
+  driver: "mysql"
+  addr: "127.0.0.1:3306"
+  database: "dev"
+  username: "dev"
+  password: "dev123"
+  charset: "utf8mb4"
+  max_life_time: 2
+  max_idle_conns: 10
+  max_open_conns: 200
+  log_file: "./log/sql.log"
+  log_level: 4
+  slow_log: 2
+
+redis:
+  addr: "127.0.0.1:6379"
+  username: "dev"
+  password: "dev123"
+  db: 0
+  pool_size: 20
+  min_idle_conns: 5
+
+jwt:
+  secret: "cf9a9edd4f8c43a98882d6a8ec3da61b233cab9d1d264e8ea309ad8a60b6adbc"
+  expires_at: 3

@@ -5,7 +5,7 @@ import "github.com/spf13/cobra"
 var (
 	confFile string
 
-	CheckCmd = &cobra.Command{
+	InitCmd = &cobra.Command{
 		Use:     "init",
 		Short:   "scaffold-gin init",
 		Long:    "初始化项目",
@@ -21,7 +21,7 @@ var (
 )
 
 func init() {
-	CheckCmd.PersistentFlags().StringVarP(&confFile, "config", "c", "../conf/default.yaml", "提供项目配置文件")
+	InitCmd.PersistentFlags().StringVarP(&confFile, "config", "c", "../conf/default.yaml", "提供项目配置文件")
 }
 
 // 初始化配置

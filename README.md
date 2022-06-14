@@ -45,9 +45,14 @@ docker-compose -f ./docker-compose.yaml build
 ```bash
 github.com/spf13/cobra  # 命令行
 github.com/spf13/viper  # 配置管理
+go.uber.org/zap  # 日志服务
+github.com/natefinch/lumberjack  # 日志切割服务
+github.com/go-playground/validator/v10  # 数据校验服务
+gorm.io/gorm  # 数据库orm
+gorm.io/driver/mysql  # mysql驱动
+gorm.io/gorm/logger  # 数据库日志
+github.com/go-redis/redis/v8  # redis客户端
 github.com/google/wire/cmd/wire  # 依赖注入, 需要安装
-
-
 ```
 
 其他服务:
