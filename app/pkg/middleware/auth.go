@@ -65,7 +65,6 @@ func JwtAuth(iss string, jwtSrv *lib.JwtService, userSrc *lib.UserService) gin.H
 			}
 		}
 
-		c.Set("token", token)
 		c.Set("id", claims.ID)
 		c.Next()
 	}

@@ -8,9 +8,9 @@ import (
 
 // Response 自定义响应体
 type Response struct {
-	ErrorCode int    `json:"error_code"`
-	Data      any    `json:"data"`
-	Message   string `json:"message"`
+	ErrCode int    `json:"err_code"`
+	Data    any    `json:"data"`
+	Message string `json:"message"`
 }
 
 // Success 成功的响应, 错误码为0

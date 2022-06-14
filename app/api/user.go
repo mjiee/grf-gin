@@ -17,7 +17,13 @@ func NewUserHandler(userSrv *lib.UserService) *UserHandler {
 	return &UserHandler{userSrv}
 }
 
-// GetUserInfo
+// @Summary 'GetUserInfo'
+// @description '获取用户信息'
+// @Tags user
+// @Prodece application/json
+// @Success 200 {object} model.User "用户信息"
+// @Failure 1003 {object} response.Response '错误信息'
+// @Router /user/getUserInfo [get]
 func (h *UserHandler) GetUserInfo(c *gin.Context) {
 	user, err := h.userSrv.GetUserInfo(c.MustGet("id").(string))
 	if err != nil {

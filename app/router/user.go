@@ -9,9 +9,10 @@ func init() {
 	authRouters = append(authRouters, userRouter)
 }
 
+// 用户操作
 func userRouter(v *gin.RouterGroup, auth *AuthApi) {
 	r := v.Group("/user").Use(middleware.JwtAuth(auth.appName, auth.jwtSrv, auth.userSrv))
 	{
-		r.POST("/getUserInfo", auth.userH.GetUserInfo)
+		r.GET("/getUserInfo", auth.userH.GetUserInfo)
 	}
 }

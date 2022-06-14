@@ -54,6 +54,9 @@ gorm.io/gorm/logger  # 数据库日志
 github.com/go-redis/redis/v8  # redis客户端
 github.com/gin-gonic/gin  # web服务框架
 github.com/golang-jwt/jwt/v4  # jwt认证服务
+github.com/swaggo/files  # swagger内置文件
+github.com/swaggo/gin-swagger  # swagger gin中间件
+github.com/swaggo/swag/cmd/swag  # 生成api文档, 需要安装
 github.com/google/wire/cmd/wire  # 依赖注入, 需要安装
 ```
 
@@ -61,8 +64,10 @@ github.com/google/wire/cmd/wire  # 依赖注入, 需要安装
 
 ```bash
 # swagger文档生成
-swag init --parseDependency --output ./bin/docs
+swag init --parseDependency --output ./app/docs
+go build -tags "dev"
+# api访问地址: /api/v1/swagger/index.html
 
-# 依赖代码文档生成
+# 依赖代码生成
 wire
 ```

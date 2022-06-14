@@ -6,6 +6,7 @@ func init() {
 	noAuthRouters = append(noAuthRouters, registerAndLogin)
 }
 
+// 用户注册和登录
 func registerAndLogin(v *gin.RouterGroup, noAuth *NoAuthApi) {
 	r := v.Group("/auth")
 	{
