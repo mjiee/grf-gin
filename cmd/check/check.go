@@ -7,13 +7,14 @@ import (
 	"gorm.io/gorm"
 )
 
-type App struct {
+type checker struct {
 	conf  *conf.Config
 	log   *zap.Logger
 	db    *gorm.DB
 	redis *redis.Client
 }
 
-func NewApp(conf *conf.Config, log *zap.Logger, db *gorm.DB, redis *redis.Client) App {
-	return App{conf, log, db, redis}
+// NewChecker 初始化检查器
+func newChecker(conf *conf.Config, log *zap.Logger, db *gorm.DB, redis *redis.Client) checker {
+	return checker{conf, log, db, redis}
 }

@@ -10,8 +10,8 @@ import (
 	"github.com/mjiee/scaffold-gin/app/pkg/zlog"
 )
 
-func NewChecker(confFile string) (App, func(), error) {
-	wire.Build(NewApp, conf.NewConfig, zlog.NewLogger, db.DbSet)
+func initChecker(confFile string) (checker, func(), error) {
+	wire.Build(newChecker, conf.NewConfig, zlog.NewLogger, db.DbSet)
 
-	return App{}, nil, nil
+	return checker{}, nil, nil
 }

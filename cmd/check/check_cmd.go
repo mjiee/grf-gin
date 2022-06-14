@@ -1,7 +1,9 @@
 package check
 
 import (
+	"context"
 	"fmt"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/mjiee/scaffold-gin/app/pkg/util"
@@ -29,27 +31,61 @@ func init() {
 
 // 运行检测
 func run() error {
-	app, cleanup, err := NewChecker(confFile)
+	checker, cleanup, err := initChecker(confFile)
 	if err != nil {
 		return err
 	}
 
 	defer cleanup()
 
-	checkConf(app)
+	checkConf(checker)
+	checkLogger(checker)
+	checkMysql(checker)
+	checkRedis(checker)
 
 	return nil
 }
 
 // check config
-func checkConf(app App) {
+func checkConf(checker checker) {
 	validate := validator.New()
 	validate.RegisterValidation("addr", util.CheckAddr)
 
-	if err := validate.Struct(app.conf); err != nil {
+	if err := validate.Struct(checker.conf); err != nil {
 		fmt.Println(err.Error())
 		panic("配置文件异常...")
 	} else {
-		fmt.Println("配置文件检测正常...")
+		fmt.Println("配置文件正常...")
+	}
+}
+
+// check logger
+func checkLogger(checker checker) {
+	checker.log.Info("测试日志写入...")
+	fmt.Println("日志写入正常...")
+}
+
+// check mysql
+func checkMysql(checker checker) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	sqlDb, _ := checker.db.DB()
+	if err := sqlDb.PingContext(ctx); err != nil {
+		panic("mysql连接测试异常...")
+	} else {
+		fmt.Println("mysql连接正常...")
+	}
+}
+
+// check redis
+func checkRedis(checker checker) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	if err := checker.redis.Ping(ctx).Err(); err != nil {
+		panic("redis连接测试异常...")
+	} else {
+		fmt.Println("redis连接正常...")
 	}
 }

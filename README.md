@@ -52,6 +52,8 @@ gorm.io/gorm  # 数据库orm
 gorm.io/driver/mysql  # mysql驱动
 gorm.io/gorm/logger  # 数据库日志
 github.com/go-redis/redis/v8  # redis客户端
+github.com/gin-gonic/gin  # web服务框架
+github.com/golang-jwt/jwt/v4  # jwt认证服务
 github.com/google/wire/cmd/wire  # 依赖注入, 需要安装
 ```
 
