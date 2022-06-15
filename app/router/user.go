@@ -11,7 +11,7 @@ func init() {
 
 // 用户操作
 func userRouter(v *gin.RouterGroup, auth *AuthApi) {
-	r := v.Group("/user").Use(middleware.JwtAuth(auth.appName, auth.jwtSrv, auth.userSrv))
+	r := v.Group("/user").Use(middleware.JwtAuth(auth.appName, auth.jwtSrv))
 	{
 		r.GET("/getUserInfo", auth.userH.GetUserInfo)
 	}

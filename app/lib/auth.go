@@ -2,6 +2,8 @@ package lib
 
 import (
 	"context"
+	"errors"
+	"strings"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -23,7 +25,7 @@ type AppClaims struct {
 // TokenOutput token输出格式
 type TokenOutput struct {
 	AccessToken string `json:"access_token"`
-	ExpiresAt   int    `json:"expires_At"`
+	ExpiresAt   int    `json:"expires_at"`
 	TokenType   string `json:"token_type"`
 }
 
@@ -54,14 +56,14 @@ func (s *JwtService) GenToken(iss string, user JwtUser) (TokenOutput, error) {
 	tokenStr, err := token.SignedString([]byte(s.Conf.Secret))
 	tokenData := TokenOutput{
 		AccessToken: tokenStr,
-		ExpiresAt:   int(expiresAt),
+		ExpiresAt:   s.Conf.ExpiresAt * 3600,
 		TokenType:   "Bearer",
 	}
 
 	return tokenData, err
 }
 
-// add token to blacklist
+// JoinBlackList 将token加入黑名单
 func (s *JwtService) JoinBlackList(tokenStr string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
@@ -69,7 +71,7 @@ func (s *JwtService) JoinBlackList(tokenStr string) error {
 	return s.redis.SetNX(ctx, getBlackListKey(tokenStr), 1, 30*time.Minute).Err()
 }
 
-// whether the token is on the blacklist
+// IsInBlackList 查询token是否在黑名单中
 func (s *JwtService) IsInBlackList(tokenStr string) bool {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
@@ -79,6 +81,36 @@ func (s *JwtService) IsInBlackList(tokenStr string) bool {
 		return false
 	}
 	return true
+}
+
+// RequestAuth 请求头jwt认证
+func (s *JwtService) RequestAuth(iss string, authStr string) (*AppClaims, *jwt.Token, error) {
+	if authStr == "" {
+		return nil, nil, errors.New("请求头Authorization为空")
+	}
+
+	// token格式验证
+	authSlice := strings.SplitN(authStr, " ", 2)
+	if len(authSlice) != 2 || authSlice[0] != "Bearer" {
+		return nil, nil, errors.New("请求头Authorization格式错误")
+	}
+
+	// token解析
+	token, err := jwt.ParseWithClaims(authSlice[1], &AppClaims{}, func(token *jwt.Token) (any, error) {
+		return []byte(s.Conf.Secret), nil
+	})
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// 颁发人验证
+	claims, ok := token.Claims.(*AppClaims)
+	if !ok || claims.Issuer != iss {
+		return nil, nil, errors.New("无效token")
+	}
+
+	return claims, token, nil
 }
 
 // get blacklist key

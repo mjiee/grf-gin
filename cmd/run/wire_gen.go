@@ -34,7 +34,7 @@ func initApp(confFile2 string) (*app, func(), error) {
 	authHandler := api.NewAuthHandler(config, jwtService, userService)
 	noAuthApi := router.NewNoAuthApi(authHandler)
 	userHandler := api.NewUserHandler(userService)
-	authApi := router.NewAuthApi(config, jwtService, userService, userHandler)
+	authApi := router.NewAuthApi(config, jwtService, userHandler)
 	engine := router.NewRouter(config, logger, noAuthApi, authApi)
 	runApp := newApp(config, logger, engine)
 	return runApp, func() {

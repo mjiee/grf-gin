@@ -1,8 +1,6 @@
 package api
 
 import (
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 	"github.com/mjiee/scaffold-gin/app/lib"
 	"github.com/mjiee/scaffold-gin/app/pkg/apperr"
@@ -56,9 +54,9 @@ func (h *AuthHandler) Register(c *gin.Context) {
 // @Produce application/json
 // @Param phone formData string true "手机号"
 // @Param password formData string true "用户密码"
-// @Success 200 {string} string "登录成功"
+// @Success 200 {object} lib.TokenOutput "登录成功"
 // @Failure 10002 {object} response.Response "错误信息"
-// @Router /auth/login [post]
+// @Router /auth/login [get]
 func (h *AuthHandler) Login(c *gin.Context) {
 	var form lib.Login
 	if err := c.ShouldBindQuery(&form); err != nil {
@@ -74,9 +72,42 @@ func (h *AuthHandler) Login(c *gin.Context) {
 			response.Failure(c, apperr.BusinessErr, err.Error())
 			return
 		} else {
-			c.Header("New-Token", tokenData.AccessToken)
-			c.Header("New-Expires-In", strconv.Itoa(tokenData.ExpiresAt))
-			response.Success(c, "login success")
+			response.Success(c, tokenData)
 		}
+	}
+}
+
+// @Summary "RenewToken"
+// @Description "更新Token"
+// @Tags auth
+// @Produce application/json
+// @Success 200 {object} lib.TokenOutput "更新成功"
+// @Failuer 0 {string} string 'token已更新'
+// @Failure 10002 {object} response.Response "错误信息"
+// @Router /auth/renewToken [get]
+func (h *AuthHandler) RenewToken(c *gin.Context) {
+	headerAuth := c.GetHeader("Authorization")
+	claims, token, err := h.jwtSrv.RequestAuth(h.appName, headerAuth)
+
+	if err != nil {
+		response.Failure(c, apperr.TokenError, err.Error())
+		c.Abort()
+		return
+	}
+
+	// token renew
+	if !h.jwtSrv.IsInBlackList(token.Raw) {
+		user, err := h.userSrv.GetUserInfo(claims.ID)
+		if err != nil {
+			response.Failure(c, apperr.TokenError, err.Error())
+			c.Abort()
+			return
+		} else {
+			tokenData, _ := h.jwtSrv.GenToken(h.appName, user)
+			_ = h.jwtSrv.JoinBlackList(token.Raw)
+			response.Success(c, tokenData)
+		}
+	} else {
+		response.Success(c, nil)
 	}
 }
