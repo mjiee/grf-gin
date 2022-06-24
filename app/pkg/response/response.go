@@ -15,7 +15,7 @@ type Response struct {
 
 // Success 成功的响应, 错误码为0
 func Success(c *gin.Context, data any) {
-	c.JSON(http.StatusOK, Response{0, data, "ok"})
+	c.JSON(http.StatusOK, Response{0, data, ""})
 }
 
 // Failure 失败的响应, 错误码非0
