@@ -11,6 +11,6 @@ func registerAndLogin(v *gin.RouterGroup, noAuth *NoAuthApi) {
 	r := v.Group("/auth")
 	{
 		r.POST("/register", noAuth.authH.Register)
-		r.POST("/login", noAuth.authH.Login)
+		r.GET("/login", noAuth.authH.Login)
 	}
 }

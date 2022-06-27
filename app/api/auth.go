@@ -61,7 +61,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 // @Router /auth/login [post]
 func (h *AuthHandler) Login(c *gin.Context) {
 	var form lib.Login
-	if err := c.ShouldBindJSON(&form); err != nil {
+	if err := c.ShouldBindQuery(&form); err != nil {
 		response.Failure(c, apperr.ValidateErr, request.GetErrorMsg(form, err))
 		return
 	}

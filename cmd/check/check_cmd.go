@@ -17,7 +17,7 @@ var (
 		Use:     "check",
 		Short:   "scaffold-gin check",
 		Long:    "检测项目配置和依赖服务",
-		Example: "scaffold-gin check -f ./config/default.yaml",
+		Example: "scaffold-gin check -c ./config/default.yaml",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return run()
 			// return nil
