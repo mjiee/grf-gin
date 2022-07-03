@@ -10,7 +10,7 @@ import (
 func JwtAuth(iss string, jwtSrv *lib.JwtService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		headerAuth := c.Request.Header.Get("Authorization")
-	 claims, _, err := jwtSrv.RequestAuth(iss, headerAuth)
+		claims, _, err := jwtSrv.RequestAuth(iss, headerAuth)
 
 		if err != nil {
 			response.Failure(c, apperr.TokenError, err.Error())

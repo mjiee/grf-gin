@@ -8,17 +8,17 @@ import (
 
 // Response 自定义响应体
 type Response struct {
-	ErrCode int    `json:"err_code"`
-	Data    any    `json:"data"`
-	Message string `json:"message"`
+	Status  int    `json:"status"`  // 响应状态码
+	Data    any    `json:"data"`    // 响应数据
+	Message string `json:"message"` // 错误描述
 }
 
-// Success 成功的响应, 错误码为0
+// Success 成功的响应, 状态码为0
 func Success(c *gin.Context, data any) {
 	c.JSON(http.StatusOK, Response{0, data, ""})
 }
 
-// Failure 失败的响应, 错误码非0
+// Failure 失败的响应, 状态码非0
 func Failure(c *gin.Context, code int, msg string) {
 	c.JSON(http.StatusOK, Response{code, nil, msg})
 }

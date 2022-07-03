@@ -1,6 +1,8 @@
 app/docs
+conf/*.local.yaml
 log
 main
 scaffold-gin
 nohup.out
+
 
