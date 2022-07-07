@@ -47,8 +47,11 @@ func run() error {
 
 // 迁移schema
 func dataMigrate(db *gorm.DB) error {
-	fmt.Println("迁移user表...")
-	if err := db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(&model.User{}); err != nil {
+	fmt.Println("迁移user, manager表...")
+	if err := db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
+		&model.User{},
+		&model.Manager{},
+	); err != nil {
 		return err
 	}
 

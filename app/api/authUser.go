@@ -29,8 +29,9 @@ func NewAuthHandler(cfg *conf.Config, jwtSrv *lib.JwtService, userSrv *lib.UserS
 // @Param name formData string true "用户名"
 // @Param phone formData string true "手机号"
 // @Param password formData string true "用户密码"
+// @Param category formData bool false "人员类别: manager: true | user: false"
+// @response default {object} response.Response "响应包装"
 // @Success 200 {object} model.User '用户详情'
-// @Failure 10001 {object} response.Response '错误信息'
 // @Router /auth/register [post]
 func (h *AuthHandler) Register(c *gin.Context) {
 	var form lib.Register
@@ -43,8 +44,19 @@ func (h *AuthHandler) Register(c *gin.Context) {
 		response.Failure(c, apperr.BusinessErr, err.Error())
 		return
 	} else {
-		response.Success(c, user)
+		if tokenData, err := h.jwtSrv.GenToken(h.appName, form.IsAdmin, user); err != nil {
+			response.Failure(c, apperr.BusinessErr, err.Error())
+			return
+		} else {
+			response.Success(c, tokenData)
+		}
 	}
+}
+
+// loginResponse 登陆成功响应数据
+type loginResponse struct {
+	user  any
+	token *lib.TokenOutput
 }
 
 // @Summary "Login"
@@ -52,10 +64,11 @@ func (h *AuthHandler) Register(c *gin.Context) {
 // @Tags auth
 // @Accept application/json
 // @Produce application/json
-// @Param phone formData string true "手机号"
-// @Param password formData string true "用户密码"
-// @Success 200 {object} lib.TokenOutput "登录成功"
-// @Failure 10002 {object} response.Response "错误信息"
+// @Param phone query string true "手机号"
+// @Param password query string true "用户密码"
+// @Param category query bool false "人员类别: manager: true | user: false"
+// @response default {object} response.Response "响应包装"
+// @Success 200 {object} loginResponse "登录成功后response中的data数据"
 // @Router /auth/login [get]
 func (h *AuthHandler) Login(c *gin.Context) {
 	var form lib.Login
@@ -68,11 +81,11 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		response.Failure(c, apperr.BusinessErr, err.Error())
 		return
 	} else {
-		if tokenData, err := h.jwtSrv.GenToken(h.appName, user); err != nil {
+		if tokenData, err := h.jwtSrv.GenToken(h.appName, form.IsAdmin, user); err != nil {
 			response.Failure(c, apperr.BusinessErr, err.Error())
 			return
 		} else {
-			response.Success(c, tokenData)
+			response.Success(c, loginResponse{user, tokenData})
 		}
 	}
 }
@@ -81,29 +94,29 @@ func (h *AuthHandler) Login(c *gin.Context) {
 // @Description "更新Token"
 // @Tags auth
 // @Produce application/json
-// @Success 200 {object} lib.TokenOutput "更新成功"
-// @Failuer 0 {string} string 'token已更新'
-// @Failure 10002 {object} response.Response "错误信息"
+// @Param category query bool false "人员类别: manager: true | user: false"
+// @response default {object} response.Response "响应包装"
+// @Success 200 {object} lib.TokenOutput "更新成功, 如果data为空, 表示token已更新过"
 // @Router /auth/renewToken [get]
 func (h *AuthHandler) RenewToken(c *gin.Context) {
 	headerAuth := c.GetHeader("Authorization")
 	claims, token, err := h.jwtSrv.RequestAuth(h.appName, headerAuth)
 
 	if err != nil {
-		response.Failure(c, apperr.TokenError, err.Error())
+		response.Failure(c, apperr.TokenErr, err.Error())
 		c.Abort()
 		return
 	}
 
 	// token renew
 	if !h.jwtSrv.IsInBlackList(token.Raw) {
-		user, err := h.userSrv.GetUserInfo(claims.ID)
+		user, err := h.userSrv.GetUserInfo(claims.ID, claims.IsAdmin)
 		if err != nil {
-			response.Failure(c, apperr.TokenError, err.Error())
+			response.Failure(c, apperr.TokenErr, err.Error())
 			c.Abort()
 			return
 		} else {
-			tokenData, _ := h.jwtSrv.GenToken(h.appName, user)
+			tokenData, _ := h.jwtSrv.GenToken(h.appName, claims.IsAdmin, user)
 			_ = h.jwtSrv.JoinBlackList(token.Raw)
 			response.Success(c, tokenData)
 		}

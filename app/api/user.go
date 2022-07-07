@@ -20,12 +20,13 @@ func NewUserHandler(userSrv *lib.UserService) *UserHandler {
 // @Summary 'GetUserInfo'
 // @description '获取用户信息'
 // @Tags user
+// @Security ApiKeyAuth
 // @Prodece application/json
+// @response default {object} response.Response "响应包装"
 // @Success 200 {object} model.User "用户信息"
-// @Failure 1003 {object} response.Response '错误信息'
 // @Router /user/getUserInfo [get]
 func (h *UserHandler) GetUserInfo(c *gin.Context) {
-	user, err := h.userSrv.GetUserInfo(c.MustGet("id").(string))
+	user, err := h.userSrv.GetUserInfo(c.MustGet("id").(string), false)
 	if err != nil {
 		response.Failure(c, apperr.BusinessErr, err.Error())
 		return

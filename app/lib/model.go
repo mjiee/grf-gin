@@ -7,6 +7,7 @@ type Register struct {
 	Name     string `form:"name" json:"name" binding:"required"`                 // user name
 	Phone    string `form:"phone" json:"phone" binding:"required,len=11,number"` // phone
 	Password string `form:"password" json:"password" binding:"required,gte=6"`   // password
+	IsAdmin  bool   `form:"category" json:"category" default:"false"`
 }
 
 // GetMessages 实现request.Validator接口
@@ -25,6 +26,7 @@ func (register Register) GetMessages() request.ValidatorMessages {
 type Login struct {
 	Phone    string `form:"phone" json:"phone" binding:"required,len=11,number"`
 	Password string `form:"password" json:"password" binding:"required,gte=6"`
+	IsAdmin  bool   `form:"category" json:"category" default:"false"`
 }
 
 // GetMessages 实现request.Validator接口

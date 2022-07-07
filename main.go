@@ -6,7 +6,7 @@ import (
 
 // @title scaffold-gin
 // @version 0.0.1
-// @description "这是一个web项目。请求成功的消息都包装在: '{"err_code":"0","data":"xx","message":""}', 下文中的成功返回都只写了data数据类型. 请求失败的错误码为err_code值"
+// @description "Scaffold-gin是一个基于go语言gin框架的web案例，专注于前后端分离的业务场景。\n1. 登陆后的请求必须添加Authorization. \n2. 响应数据都包装在response.Response中, status非0时表示出现自定义错误, 错误消息在message中。status为0表示正常响应, 数据在data中。"
 
 // @contact.name mjiee
 // @contact.url https://mjiee.top

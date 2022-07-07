@@ -1,9 +1,12 @@
 package apperr
 
 const (
-	ValidateErr  = 10001 // parameter validation error
-	TokenError   = 10002 // Login authorization invalid
-	TokenInvalid = 10003 // Token has expired
+	// 参数验证相关错误
+	ValidateErr = 10001
 
-	BusinessErr = 20001 // business logic error
+	// token认证相关错误
+	TokenErr = 20001
+
+	// 业务逻辑相关错误
+	BusinessErr = 30001
 )

@@ -14,11 +14,13 @@ import (
 
 // JwtUser 签名实例需要实现的接口
 type JwtUser interface {
-	GetUid() string
+	GetUid() string // 获取用户id
+	GetPwd() string // 获取用户秘密
 }
 
 // AppClaims 自定义claims
 type AppClaims struct {
+	IsAdmin bool `json:"isadmin"`
 	jwt.RegisteredClaims
 }
 
@@ -40,9 +42,10 @@ func NewJwtService(cfg *conf.Config, redis *redis.Client) *JwtService {
 }
 
 // GenToken 创建token
-func (s *JwtService) GenToken(iss string, user JwtUser) (TokenOutput, error) {
+func (s *JwtService) GenToken(iss string, isAdmin bool, user JwtUser) (*TokenOutput, error) {
 	expiresAt := time.Hour * time.Duration(s.Conf.ExpiresAt)
 	claims := AppClaims{
+		isAdmin,
 		jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(expiresAt)),
 			ID:        user.GetUid(),
@@ -60,27 +63,7 @@ func (s *JwtService) GenToken(iss string, user JwtUser) (TokenOutput, error) {
 		TokenType:   "Bearer",
 	}
 
-	return tokenData, err
-}
-
-// JoinBlackList 将token加入黑名单
-func (s *JwtService) JoinBlackList(tokenStr string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
-	return s.redis.SetNX(ctx, getBlackListKey(tokenStr), 1, 30*time.Minute).Err()
-}
-
-// IsInBlackList 查询token是否在黑名单中
-func (s *JwtService) IsInBlackList(tokenStr string) bool {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
-	val, err := s.redis.Get(ctx, getBlackListKey(tokenStr)).Result()
-	if val == "" || err != nil {
-		return false
-	}
-	return true
+	return &tokenData, err
 }
 
 // RequestAuth 请求头jwt认证
@@ -111,6 +94,26 @@ func (s *JwtService) RequestAuth(iss string, authStr string) (*AppClaims, *jwt.T
 	}
 
 	return claims, token, nil
+}
+
+// JoinBlackList 将token加入黑名单
+func (s *JwtService) JoinBlackList(tokenStr string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	return s.redis.SetNX(ctx, getBlackListKey(tokenStr), 1, 30*time.Minute).Err()
+}
+
+// IsInBlackList 查询token是否在黑名单中
+func (s *JwtService) IsInBlackList(tokenStr string) bool {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	val, err := s.redis.Get(ctx, getBlackListKey(tokenStr)).Result()
+	if val == "" || err != nil {
+		return false
+	}
+	return true
 }
 
 // get blacklist key

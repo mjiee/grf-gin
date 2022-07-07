@@ -19,6 +19,6 @@ func Success(c *gin.Context, data any) {
 }
 
 // Failure 失败的响应, 状态码非0
-func Failure(c *gin.Context, code int, msg string) {
-	c.JSON(http.StatusOK, Response{code, nil, msg})
+func Failure(c *gin.Context, status int, msg string) {
+	c.JSON(http.StatusOK, Response{status, nil, msg})
 }

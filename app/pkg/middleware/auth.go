@@ -13,10 +13,14 @@ func JwtAuth(iss string, jwtSrv *lib.JwtService) gin.HandlerFunc {
 		claims, _, err := jwtSrv.RequestAuth(iss, headerAuth)
 
 		if err != nil {
-			response.Failure(c, apperr.TokenError, err.Error())
+			response.Failure(c, apperr.TokenErr, err.Error())
 			c.Abort()
 			return
 		}
+
+		// if claims.IsAdmin {
+		// 	c.Set("isAdmin", claims.IsAdmin)
+		// }
 
 		c.Set("id", claims.ID)
 		c.Next()

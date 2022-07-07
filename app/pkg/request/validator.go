@@ -10,7 +10,7 @@ type Validator interface {
 
 type ValidatorMessages map[string]string
 
-// Get error messages
+// GetErrorMsg 获取字段验证错误信息
 func GetErrorMsg(request Validator, err error) string {
 	if validatorErrs, isValidatorErrors := err.(validator.ValidationErrors); isValidatorErrors {
 		for _, v := range validatorErrs {
