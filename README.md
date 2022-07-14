@@ -1,7 +1,8 @@
 # Scaffold-gin
 
-[![GitHub](https://img.shields.io/github/license/mjiee/gr-gin)](https://github.com/mjiee/gr-gin/blob/master/LICENSE)
-[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/mjiee/gr-gin)](https://go.dev/)
+[![GitHub](https://img.shields.io/github/license/mjiee/gr-gin?style=social)](https://github.com/mjiee/gr-gin/blob/master/LICENSE)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/mjiee/gr-gin?style=social)](https://go.dev/)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/mjiee/gr-gin?style=social)](https://github.com/mjiee/gr-gin/releases)
 
 Scaffold-gin是一个基于go语言gin框架的web案例，专注于前后端分离的业务场景。目的是为初学者提供一个清晰的web项目主线逻辑，对基础功能实现封装。
 
