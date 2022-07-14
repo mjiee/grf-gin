@@ -1,12 +1,27 @@
 # Scaffold-gin
 
-![GitHub](https://img.shields.io/github/license/mjiee/scaffold-gin)
+[![GitHub](https://img.shields.io/github/license/mjiee/gr-gin)](https://github.com/mjiee/gr-gin/blob/master/LICENSE)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/mjiee/gr-gin)](https://go.dev/)
 
 Scaffold-gin是一个基于go语言gin框架的web案例，专注于前后端分离的业务场景。目的是为初学者提供一个清晰的web项目主线逻辑，对基础功能实现封装。
 
+主要使用的技术栈：
+
+* web框架: [gin](https://github.com/gin-gonic/gin)
+* 命令行: [cobra](https://github.com/spf13/cobra)
+* 配置管理: [viper](https://github.com/spf13/viper)
+* 日志库: [zap](https://github.com/uber-go/zap)
+* 依赖注入: [wire](https://github.com/google/wire)
+* orm库: [gorm](https://github.com/go-gorm/gorm)
+* redis库: [go-redis](https://github.com/go-redis/redis)
+* jwt库: [golang-jwt](https://github.com/golang-jwt/jwt)
+* 文档: [swag](https://github.com/swaggo/swag)
+
 ## Deployment
 
-快速部署项目
+环境依赖: mysql > 8.0, redis > 6.0。
+
+快速部署项目:
 
 ```bash
 # 获取项目
@@ -26,39 +41,7 @@ vi ./conf/default.yaml
 ./scaffold-gin run -c ./conf/default.yaml
 ```
 
-使用docker一键部署项目
-
-```bash
-docker-compose -f ./docker-compose.yaml build
-```
-
 ## Documentation
-
-项目目录结构：
-
-```bash
-
-```
-
-项目依赖:
-
-```bash
-github.com/spf13/cobra  # 命令行
-github.com/spf13/viper  # 配置管理
-go.uber.org/zap  # 日志服务
-github.com/natefinch/lumberjack  # 日志切割服务
-github.com/go-playground/validator/v10  # 数据校验服务
-gorm.io/gorm  # 数据库orm
-gorm.io/driver/mysql  # mysql驱动
-gorm.io/gorm/logger  # 数据库日志
-github.com/go-redis/redis/v8  # redis客户端
-github.com/gin-gonic/gin  # web服务框架
-github.com/golang-jwt/jwt/v4  # jwt认证服务
-github.com/swaggo/files  # swagger内置文件
-github.com/swaggo/gin-swagger  # swagger gin中间件
-github.com/swaggo/swag/cmd/swag  # 生成api文档, 需要安装
-github.com/google/wire/cmd/wire  # 依赖注入, 需要安装
-```
 
 其他服务:
 
@@ -70,4 +53,12 @@ go build -tags "dev"
 
 # 依赖代码生成
 wire
+```
+
+自定义错误码:
+
+```bash
+10001  # 参数验证相关错误    
+20001  # token认证相关错误   
+30001  # 业务逻辑相关错误
 ```

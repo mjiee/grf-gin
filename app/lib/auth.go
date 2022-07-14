@@ -26,9 +26,9 @@ type AppClaims struct {
 
 // TokenOutput token输出格式
 type TokenOutput struct {
-	AccessToken string `json:"access_token"`
-	ExpiresAt   int    `json:"expires_at"`
-	TokenType   string `json:"token_type"`
+	Token   string `json:"token"`
+	Expires int    `json:"expires"`
+	Type    string `json:"type"`
 }
 
 // JwtAuth 提供jwt相关服务
@@ -58,9 +58,9 @@ func (s *JwtService) GenToken(iss string, isAdmin bool, user JwtUser) (*TokenOut
 
 	tokenStr, err := token.SignedString([]byte(s.Conf.Secret))
 	tokenData := TokenOutput{
-		AccessToken: tokenStr,
-		ExpiresAt:   s.Conf.ExpiresAt * 3600,
-		TokenType:   "Bearer",
+		Token:   tokenStr,
+		Expires: s.Conf.ExpiresAt * 3600,
+		Type:    "Bearer",
 	}
 
 	return &tokenData, err

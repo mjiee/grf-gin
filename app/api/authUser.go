@@ -21,7 +21,7 @@ func NewAuthHandler(cfg *conf.Config, jwtSrv *lib.JwtService, userSrv *lib.UserS
 	return &AuthHandler{cfg.App.Name, jwtSrv, userSrv}
 }
 
-// @Summary "Register"
+// @Summary "SignUp"
 // @Description "用户注册"
 // @Tags auth
 // @Accept application/json
@@ -32,15 +32,15 @@ func NewAuthHandler(cfg *conf.Config, jwtSrv *lib.JwtService, userSrv *lib.UserS
 // @Param category formData bool false "人员类别: manager: true | user: false"
 // @response default {object} response.Response "响应包装"
 // @Success 200 {object} model.User '用户详情'
-// @Router /auth/register [post]
-func (h *AuthHandler) Register(c *gin.Context) {
+// @Router /auth/signup [post]
+func (h *AuthHandler) SignUp(c *gin.Context) {
 	var form lib.Register
 	if err := c.ShouldBindJSON(&form); err != nil {
 		response.Failure(c, apperr.ValidateErr, request.GetErrorMsg(form, err))
 		return
 	}
 
-	if user, err := h.userSrv.Register(form); err != nil {
+	if user, err := h.userSrv.SignUp(form); err != nil {
 		response.Failure(c, apperr.BusinessErr, err.Error())
 		return
 	} else {
@@ -59,7 +59,7 @@ type loginResponse struct {
 	token *lib.TokenOutput
 }
 
-// @Summary "Login"
+// @Summary "SignIn"
 // @Description "用户登录"
 // @Tags auth
 // @Accept application/json
@@ -69,15 +69,15 @@ type loginResponse struct {
 // @Param category query bool false "人员类别: manager: true | user: false"
 // @response default {object} response.Response "响应包装"
 // @Success 200 {object} loginResponse "登录成功后response中的data数据"
-// @Router /auth/login [get]
-func (h *AuthHandler) Login(c *gin.Context) {
+// @Router /auth/signin [get]
+func (h *AuthHandler) SignIn(c *gin.Context) {
 	var form lib.Login
 	if err := c.ShouldBindQuery(&form); err != nil {
 		response.Failure(c, apperr.ValidateErr, request.GetErrorMsg(form, err))
 		return
 	}
 
-	if user, err := h.userSrv.Login(form); err != nil {
+	if user, err := h.userSrv.SignIn(form); err != nil {
 		response.Failure(c, apperr.BusinessErr, err.Error())
 		return
 	} else {

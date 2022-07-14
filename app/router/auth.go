@@ -12,8 +12,8 @@ func init() {
 func registerAndLogin(v *gin.RouterGroup, noAuth *NoAuthApi) {
 	r := v.Group("/auth")
 	{
-		r.POST("/register", noAuth.authH.Register)
-		r.GET("/login", noAuth.authH.Login)
+		r.POST("/signup", noAuth.authH.SignUp)
+		r.GET("/signin", noAuth.authH.SignIn)
 		r.GET("/renewToken", noAuth.authH.RenewToken)
 	}
 }

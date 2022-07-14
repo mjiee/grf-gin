@@ -28,7 +28,6 @@ func (u *User) GetPwd() string {
 // Manager 管理员, 用户登陆后台系统的账户
 type Manager struct {
 	User
-	// 管理人员角色: super: 0, admin: 1, general: 2
-	Role    uint8 `json:"role" gorm:"not null;default:2"`
-	Actived bool  `json:"-" gorm:"not null;default:false"`
+	Role    uint8 `json:"role" gorm:"not null;default:1"` // 管理人员角色: super: 3, admin: 2, general: 1
+	Actived bool  `json:"actived" gorm:"not null;default:false"`
 }

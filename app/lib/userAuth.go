@@ -8,8 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// Register 用户注册
-func (s *UserService) Register(params Register) (JwtUser, error) {
+// SignUp 用户注册
+func (s *UserService) SignUp(params Register) (JwtUser, error) {
 	var result *gorm.DB
 
 	if params.IsAdmin {
@@ -38,8 +38,8 @@ func (s *UserService) Register(params Register) (JwtUser, error) {
 	return &user, err
 }
 
-// Login 用户登录
-func (s *UserService) Login(params Login) (JwtUser, error) {
+// SignIn 用户登录
+func (s *UserService) SignIn(params Login) (JwtUser, error) {
 
 	var result JwtUser
 	var err error
