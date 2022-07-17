@@ -2,11 +2,11 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mjiee/scaffold-gin/app/lib"
-	"github.com/mjiee/scaffold-gin/app/pkg/apperr"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
-	"github.com/mjiee/scaffold-gin/app/pkg/request"
-	"github.com/mjiee/scaffold-gin/app/pkg/response"
+	"github.com/mjiee/grf-gin/app/lib"
+	"github.com/mjiee/grf-gin/app/pkg/apperr"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/request"
+	"github.com/mjiee/grf-gin/app/pkg/response"
 )
 
 // AuthHander 用户认证处理器

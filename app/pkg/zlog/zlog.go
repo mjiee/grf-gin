@@ -1,7 +1,7 @@
 package zlog
 
 import (
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

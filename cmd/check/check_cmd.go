@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/mjiee/scaffold-gin/app/pkg/util"
+	"github.com/mjiee/grf-gin/app/pkg/util"
 	"github.com/spf13/cobra"
 )
 

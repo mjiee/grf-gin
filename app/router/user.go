@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mjiee/scaffold-gin/app/pkg/middleware"
+	"github.com/mjiee/grf-gin/app/pkg/middleware"
 )
 
 func init() {

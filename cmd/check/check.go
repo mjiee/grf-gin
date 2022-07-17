@@ -2,7 +2,7 @@ package check
 
 import (
 	"github.com/go-redis/redis/v8"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )

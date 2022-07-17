@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/mjiee/scaffold-gin/app/model"
+	"github.com/mjiee/grf-gin/app/model"
 	"gorm.io/gorm"
 )
 

@@ -2,9 +2,9 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/mjiee/scaffold-gin/app/lib"
-	"github.com/mjiee/scaffold-gin/app/pkg/apperr"
-	"github.com/mjiee/scaffold-gin/app/pkg/response"
+	"github.com/mjiee/grf-gin/app/lib"
+	"github.com/mjiee/grf-gin/app/pkg/apperr"
+	"github.com/mjiee/grf-gin/app/pkg/response"
 )
 
 // UserHandler 用户处理器

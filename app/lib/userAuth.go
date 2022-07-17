@@ -3,8 +3,8 @@ package lib
 import (
 	"errors"
 
-	"github.com/mjiee/scaffold-gin/app/model"
-	"github.com/mjiee/scaffold-gin/app/pkg/util"
+	"github.com/mjiee/grf-gin/app/model"
+	"github.com/mjiee/grf-gin/app/pkg/util"
 	"gorm.io/gorm"
 )
 

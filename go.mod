@@ -1,4 +1,4 @@
-module github.com/mjiee/scaffold-gin
+module github.com/mjiee/grf-gin
 
 go 1.18
 

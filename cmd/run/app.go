@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
 	"go.uber.org/zap"
 )
 

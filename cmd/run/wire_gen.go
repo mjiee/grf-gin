@@ -7,12 +7,12 @@
 package run
 
 import (
-	"github.com/mjiee/scaffold-gin/app/api"
-	"github.com/mjiee/scaffold-gin/app/lib"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
-	"github.com/mjiee/scaffold-gin/app/pkg/db"
-	"github.com/mjiee/scaffold-gin/app/pkg/zlog"
-	"github.com/mjiee/scaffold-gin/app/router"
+	"github.com/mjiee/grf-gin/app/api"
+	"github.com/mjiee/grf-gin/app/lib"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/db"
+	"github.com/mjiee/grf-gin/app/pkg/zlog"
+	"github.com/mjiee/grf-gin/app/router"
 )
 
 // Injectors from wire.go:

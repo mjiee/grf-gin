@@ -7,9 +7,9 @@
 package check
 
 import (
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
-	"github.com/mjiee/scaffold-gin/app/pkg/db"
-	"github.com/mjiee/scaffold-gin/app/pkg/zlog"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/db"
+	"github.com/mjiee/grf-gin/app/pkg/zlog"
 )
 
 // Injectors from wire.go:

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
 )
 
 func NewRedis(cfg *conf.Config) (*redis.Client, func()) {

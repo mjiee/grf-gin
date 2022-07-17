@@ -7,8 +7,8 @@
 package migrate
 
 import (
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
-	"github.com/mjiee/scaffold-gin/app/pkg/db"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/db"
 )
 
 // Injectors from wire.go:

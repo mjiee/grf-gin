@@ -3,10 +3,10 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
-	"github.com/mjiee/scaffold-gin/app/api"
-	"github.com/mjiee/scaffold-gin/app/lib"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
-	"github.com/mjiee/scaffold-gin/app/pkg/middleware"
+	"github.com/mjiee/grf-gin/app/api"
+	"github.com/mjiee/grf-gin/app/lib"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/middleware"
 	"go.uber.org/zap"
 )
 

@@ -1,6 +1,6 @@
 package lib
 
-import "github.com/mjiee/scaffold-gin/app/pkg/request"
+import "github.com/mjiee/grf-gin/app/pkg/request"
 
 // Register 注册信息
 type Register struct {

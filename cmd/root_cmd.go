@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mjiee/scaffold-gin/cmd/check"
-	"github.com/mjiee/scaffold-gin/cmd/migrate"
-	"github.com/mjiee/scaffold-gin/cmd/run"
+	"github.com/mjiee/grf-gin/cmd/check"
+	"github.com/mjiee/grf-gin/cmd/migrate"
+	"github.com/mjiee/grf-gin/cmd/run"
 	"github.com/spf13/cobra"
 )
 

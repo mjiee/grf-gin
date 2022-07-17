@@ -5,8 +5,8 @@ package migrate
 
 import (
 	"github.com/google/wire"
-	"github.com/mjiee/scaffold-gin/app/pkg/conf"
-	"github.com/mjiee/scaffold-gin/app/pkg/db"
+	"github.com/mjiee/grf-gin/app/pkg/conf"
+	"github.com/mjiee/grf-gin/app/pkg/db"
 )
 
 func initData(confFile string) (data, func(), error) {

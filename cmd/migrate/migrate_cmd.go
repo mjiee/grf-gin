@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/mjiee/scaffold-gin/app/model"
+	"github.com/mjiee/grf-gin/app/model"
 	"github.com/spf13/cobra"
 	"gorm.io/gorm"
 )
