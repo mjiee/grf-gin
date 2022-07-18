@@ -9,7 +9,7 @@ import (
 )
 
 // SignUp 用户注册
-func (s *UserService) SignUp(params Register) (JwtUser, error) {
+func (s *UserService) SignUp(params Signup) (JwtUser, error) {
 	var result *gorm.DB
 
 	if params.IsAdmin {
@@ -39,18 +39,18 @@ func (s *UserService) SignUp(params Register) (JwtUser, error) {
 }
 
 // SignIn 用户登录
-func (s *UserService) SignIn(params Login) (JwtUser, error) {
+func (s *UserService) SignIn(params Signin) (JwtUser, error) {
 
 	var result JwtUser
 	var err error
 
 	if params.IsAdmin {
 		manager := &model.Manager{}
-		err = s.db.Where("phone = ?", params.Phone).Select("id", "password").Take(manager).Error
+		err = s.db.Where("phone = ?", params.Phone).Select("id", "name", "password", "avatar", "role", "actived").Take(manager).Error
 		result = manager
 	} else {
 		user := &model.User{}
-		err = s.db.Where("phone = ?", params.Phone).Select("id", "password").Take(user).Error
+		err = s.db.Where("phone = ?", params.Phone).Select("id", "name", "password", "avatar").Take(user).Error
 		result = user
 	}
 

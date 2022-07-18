@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/mjiee/grf-gin/app/model"
+	"github.com/mjiee/grf-gin/app/pkg/util"
 	"github.com/spf13/cobra"
 	"gorm.io/gorm"
 )
@@ -42,6 +43,11 @@ func run() error {
 		panic("初始化数据库表失败...")
 	}
 
+	if err := insertData(data.db); err != nil {
+		fmt.Println(err.Error())
+		panic("初始化管理员失败...")
+	}
+
 	return nil
 }
 
@@ -55,6 +61,20 @@ func dataMigrate(db *gorm.DB) error {
 		return err
 	}
 
+	return nil
+}
+
+// 插入初始数据
+func insertData(db *gorm.DB) error {
+	fmt.Println("插入初始化数据...")
+	var count int64
+	db.Model(&model.Manager{}).Select("id").Count(&count)
+
+	if count == 0 {
+		pwd, _ := util.BcryptPwd([]byte("admin123"))
+		manager := &model.Manager{User: model.User{Name: "admin", Phone: "12345678900", Password: pwd}, Role: 3, Actived: true}
+		return db.Create(manager).Error
+	}
 	return nil
 }
 

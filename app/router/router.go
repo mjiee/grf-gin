@@ -44,6 +44,7 @@ func NewRouter(
 	noAuth *NoAuthApi, auth *AuthApi,
 ) *gin.Engine {
 	router := gin.New()
+	gin.SetMode(gin.ReleaseMode)
 
 	router.Use(
 		middleware.RecoveryWithZap(logger, true),

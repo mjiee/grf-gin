@@ -34,7 +34,7 @@ func NewAuthHandler(cfg *conf.Config, jwtSrv *lib.JwtService, userSrv *lib.UserS
 // @Success 200 {object} model.User '用户详情'
 // @Router /auth/signup [post]
 func (h *AuthHandler) SignUp(c *gin.Context) {
-	var form lib.Register
+	var form lib.Signup
 	if err := c.ShouldBindJSON(&form); err != nil {
 		response.Failure(c, apperr.ValidateErr, request.GetErrorMsg(form, err))
 		return
@@ -55,8 +55,8 @@ func (h *AuthHandler) SignUp(c *gin.Context) {
 
 // loginResponse 登陆成功响应数据
 type loginResponse struct {
-	user  any
-	token *lib.TokenOutput
+	User lib.JwtUser      `json:"user"`
+	Auth *lib.TokenOutput `json:"auth"`
 }
 
 // @Summary "SignIn"
@@ -71,7 +71,7 @@ type loginResponse struct {
 // @Success 200 {object} loginResponse "登录成功后response中的data数据"
 // @Router /auth/signin [get]
 func (h *AuthHandler) SignIn(c *gin.Context) {
-	var form lib.Login
+	var form lib.Signin
 	if err := c.ShouldBindQuery(&form); err != nil {
 		response.Failure(c, apperr.ValidateErr, request.GetErrorMsg(form, err))
 		return

@@ -13,11 +13,11 @@ type ID struct {
 
 // create, update time
 type Timestamps struct {
-	CreateAt time.Time `json:"create_at,omitempty" gorm:"default:current_timestamp"`
-	UpdateAt time.Time `json:"update_at,omitempty" gorm:"default:current_timestamp"`
+	CreateAt time.Time `json:"-" gorm:"default:current_timestamp"`
+	UpdateAt time.Time `json:"-" gorm:"default:current_timestamp"`
 }
 
 // soft delete time
 type SoftDeletes struct {
-	DeleteAt gorm.DeletedAt `json:"delete_at,omitempty" gorm:"index"`
+	DeleteAt gorm.DeletedAt `json:"-" gorm:"index"`
 }
