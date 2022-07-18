@@ -1,10 +1,12 @@
-# Scaffold-gin
+# GRF-gin
 
-[![GitHub](https://img.shields.io/github/license/mjiee/gr-gin)](https://github.com/mjiee/gr-gin/blob/master/LICENSE)
-[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/mjiee/gr-gin)](https://go.dev/)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/mjiee/gr-gin)](https://github.com/mjiee/gr-gin/releases)
+[![GitHub](https://img.shields.io/github/license/mjiee/grf-gin)](https://github.com/mjiee/grf-gin/blob/master/LICENSE)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/mjiee/grf-gin)](https://go.dev/)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/mjiee/grf-gin)](https://github.com/mjiee/grf-gin/releases)
 
-Scaffold-gin是一个基于go语言gin框架的web案例，专注于前后端分离的业务场景。目的是为初学者提供一个清晰的web项目主线逻辑，对基础功能实现封装。
+grf-gin是一个基于go语言gin框架的web案例，专注于前后端分离的业务场景。目的是为初学者提供一个清晰的web项目主线逻辑，对基础功能实现封装。
+
+在线体验：https://demo.mjiee.top/
 
 主要使用的技术栈：
 
@@ -26,7 +28,7 @@ Scaffold-gin是一个基于go语言gin框架的web案例，专注于前后端分
 
 ```bash
 # 获取项目
-git clone https://github.com/mjiee/scaffold-gin.git
+git clone https://github.com/mjiee/grf-gin.git
 
 # 编译项目
 go build
@@ -35,11 +37,11 @@ go build
 vi ./conf/default.yaml
 
 # 初始化项目
-./scaffold-gin check -c ./conf/default.yaml
-./scaffold-gin init -c ./conf/default.yaml
+./grf-gin check -c ./conf/default.yaml
+./grf-gin init -c ./conf/default.yaml
 
 # 运行项目
-./scaffold-gin run -c ./conf/default.yaml
+./grf-gin run -c ./conf/default.yaml
 ```
 
 ## Documentation
