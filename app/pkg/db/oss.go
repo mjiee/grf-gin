@@ -5,12 +5,12 @@ import (
 	"github.com/mjiee/grf-gin/app/pkg/conf"
 )
 
-func NewOssBucket(cfg *conf.Oss) (*oss.Bucket, error) {
-	client, err := oss.New(cfg.Endpoint, cfg.AccessKeyId, cfg.AccessKeySecret)
+func NewOssBucket(cfg *conf.Config) (*oss.Bucket, error) {
+	client, err := oss.New(cfg.Oss.Endpoint, cfg.Oss.AccessKeyId, cfg.Oss.AccessKeySecret)
 	if err != nil {
 		return &oss.Bucket{}, nil
 	}
 
-	bucket, err := client.Bucket(cfg.Bucket)
+	bucket, err := client.Bucket(cfg.Oss.Bucket)
 	return bucket, err
 }

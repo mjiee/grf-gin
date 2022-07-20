@@ -48,7 +48,7 @@ func (h *AuthHandler) SignUp(c *gin.Context) {
 			response.Failure(c, apperr.BusinessErr, err.Error())
 			return
 		} else {
-			response.Success(c, tokenData)
+			response.Success(c, loginResponse{user, tokenData})
 		}
 	}
 }

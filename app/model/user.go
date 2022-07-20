@@ -29,5 +29,5 @@ func (u *User) GetPwd() string {
 type Manager struct {
 	User
 	Role    uint8 `json:"role" gorm:"not null;default:1"` // 管理人员角色: super: 3, admin: 2, general: 1
-	Actived bool  `json:"actived" gorm:"not null;default:false"`
+	Actived bool  `json:"actived" gorm:"not null;default:true"`
 }

@@ -34,7 +34,15 @@ func initApp(confFile2 string) (*app, func(), error) {
 	authHandler := api.NewAuthHandler(config, jwtService, userService)
 	noAuthApi := router.NewNoAuthApi(authHandler)
 	userHandler := api.NewUserHandler(userService)
-	authApi := router.NewAuthApi(config, jwtService, userHandler)
+	bucket, err := db.NewOssBucket(config)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	ossService := lib.NewOssService(config, client, bucket)
+	ossHandler := api.NewOssHandler(ossService)
+	authApi := router.NewAuthApi(config, jwtService, userHandler, ossHandler)
 	engine := router.NewRouter(config, logger, noAuthApi, authApi)
 	runApp := newApp(config, logger, engine)
 	return runApp, func() {
