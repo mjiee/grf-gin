@@ -13,6 +13,7 @@ type Config struct {
 	Db    `mapstructure:"db" json:"db" yaml:"db"`
 	Redis `mapstructure:"redis" json:"redis" yaml:"redis"`
 	Jwt   `mapstructure:"jwt" jsob:"jwt" yaml:"jwt"`
+	Oss   `mapstructure:"oss" jsob:"oss" yaml:"oss"`
 }
 
 func NewConfig(confFile string) (*Config, error) {

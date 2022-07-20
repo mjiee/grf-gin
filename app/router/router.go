@@ -23,6 +23,7 @@ type AuthApi struct {
 	appName string
 	jwtSrv  *lib.JwtService
 	userH   *api.UserHandler
+	ossH    *api.OssHandler
 }
 
 // NewNoAuthApi 创建NoAuthApi
@@ -33,9 +34,9 @@ func NewNoAuthApi(authH *api.AuthHandler) *NoAuthApi {
 // NewAuthApi 创建AuthApi
 func NewAuthApi(
 	cfg *conf.Config, jwtSrv *lib.JwtService,
-	userH *api.UserHandler,
+	userH *api.UserHandler, ossH *api.OssHandler,
 ) *AuthApi {
-	return &AuthApi{cfg.App.Name, jwtSrv, userH}
+	return &AuthApi{cfg.App.Name, jwtSrv, userH, ossH}
 }
 
 // NewRouter 创建gin路由

@@ -5,7 +5,7 @@ app:
 
 log:
   level: 0
-  filename: "./log/admin.log"
+  filename: "./log/grf-gin.log"
   max_size: 10
   max_age: 5
   max_backups: 10
@@ -38,3 +38,12 @@ redis:
 jwt:
   secret: "cf9a9edd4f8c43a98882d6a8ec3da61b233cab9d1d264e8ea309ad8a60b6adbc"
   expires_at: 3
+
+oss:
+  region: "cn-hangzhou"
+  endpoint: "oss-cn-hangzhou.aliyuncs.com"
+  bucket: "bucket-name"
+  access_key_id: "xxxxx"
+  access_key_secret: "xxxx"
+  role_arn: "xxxx"
+  role_session_name: "xxxx"

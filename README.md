@@ -19,6 +19,7 @@ grf-gin是一个基于go语言gin框架的web案例，专注于前后端分离�
 * redis库: [go-redis](https://github.com/go-redis/redis)
 * jwt库: [golang-jwt](https://github.com/golang-jwt/jwt)
 * 文档: [swag](https://github.com/swaggo/swag)
+* 其它: 阿里OSS，STS
 
 ## Deployment
 
