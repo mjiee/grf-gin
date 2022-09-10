@@ -1,0 +1,47 @@
+version: "3.8"
+
+networks:
+  grfgin:
+    driver: bridge
+
+services:
+  grfgin-app:
+    image: "grfgin:0.1"
+    container_name: grfgin-app
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on:
+      - grfgin-mysql
+      - grfgin-redis
+    networks:
+      - grfgin
+
+  grfgin-mysql:
+    image: mysql:latest
+    container_name: grfgin-mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=mysql8root
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=mysql8dev
+    networks:
+      - grfgin
+
+  redis-app:
+    image: redis:6.2
+    container_name: redis-app
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+    environment:
+      - TZ=Asia/Shanghai
+    command: ["redis-server", "--appendonly yes"]
+    networks:
+      - grfgin
